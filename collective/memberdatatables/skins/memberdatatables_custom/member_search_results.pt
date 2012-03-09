@@ -69,16 +69,16 @@
                                  tal:content="fullname" />
                  </td>
                  <td>
-                       <div
-                                 tal:condition="location"
-                                 tal:define="location python:authorEx.getProperty('location')"
-                                 tal:content="location" />
-                 </td>
-                 <td>
                             <div class="designation"
                                  tal:condition="designation"
                                  tal:define="designation python:authorEx.getProperty('designation');"
                                  tal:content="designation" />
+                 </td>
+                 <td>
+                       <div
+                                 tal:condition="location"
+                                 tal:define="location python:authorEx.getProperty('location')"
+                                 tal:content="location" />
                  </td>
                  <td tal:define="email python:authorEx.getProperty('email');">
                    <a tal:attributes="href string:mailto:$email;"><img src="mail_icon.gif"/></a>
@@ -88,8 +88,7 @@
             </metal:block>
          </tbody>
         </table>
-<link type="text/css" href="++resource++jquery.datatables/media/css/jquery.dataTables.css" rel="stylesheet">
-<script src="++resource++jquery.datatables.js" type="text/javascript"></script>
+
 <script type="text/javascript">
 jq(document).ready(function() {
     jq('#member-datatable').dataTable();
