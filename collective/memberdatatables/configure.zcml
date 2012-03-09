@@ -17,6 +17,6 @@
       />
   <!-- -*- extra stuff goes here -*- -->
 
-  <cmf:registerDirectory name="alfaaci_custom"/>
+  <cmf:registerDirectory name="memberdatatables_custom"/>
 
 </configure>
