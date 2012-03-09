@@ -1,0 +1,13 @@
+<?xml version="1.0"?>
+
+<object name="portal_skins">
+
+ <object name="memberdatatables_custom"
+    meta_type="Filesystem Directory View"
+    directory="collective.memberdatatables:skins/memberdatatables_custom"/>
+
+ <skin-path name="*">
+  <layer name="memberdatatables_custom" insert-after="custom"/>
+ </skin-path>
+
+</object>

@@ -1,0 +1,116 @@
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en"
+      xmlns:tal="http://xml.zope.org/namespaces/tal"
+      xmlns:metal="http://xml.zope.org/namespaces/metal"
+      xmlns:i18n="http://xml.zope.org/namespaces/i18n"
+      lang="en"
+      metal:use-macro="here/main_template/macros/master"
+      i18n:domain="cynin">
+<head>
+    <metal:block fill-slot="column_one_slot" />
+        <metal:block fill-slot="column_two_slot" />
+</head>
+<metal:block fill-slot="top_slot"
+             tal:define="dummy python:request.set('disable_border',1)" />
+
+<tal:titlebarslot metal:fill-slot="titlebar-row1">
+        <tal:titlemacrooverride metal:define-macro="itemtitle">
+            <div id="typeindicator">
+                <img tal:attributes="src string:${portal_url}/icon-group.png"/>
+                <tal:translate  i18n:translate="">People</tal:translate>
+            </div>
+            <div id="maintitleholder"
+                tal:define="url_unquote_plus python:modules['Products.PythonScripts.standard'].url_unquote_plus;
+                            author python:(len(request.traverse_subpath) > 0 and url_unquote_plus(request.traverse_subpath[0])) or request.get('author', None) or (member and member.getId());
+                        authorinfo python: mtool.getMemberInfo(author);">
+                <h1 id="maintitle" i18n:translate="header_people_directory">People Directory</h1>
+            </div>
+        </tal:titlemacrooverride>
+</tal:titlebarslot>
+
+<div metal:fill-slot="content"
+       tal:define="search_view here/@@pas_search;
+                   results python:search_view.searchUsersByRequest(request, sort_by='fullname');
+                   Batch python:modules['Products.CMFPlone'].Batch;
+                   DateTime python:modules['DateTime'].DateTime;
+                   b_size python:30;b_start python:0;b_start request/b_start | b_start;">
+
+    <div tal:condition="results">
+
+        <div>
+        <table id="member-datatable">
+         <thead>
+           <tr>
+             <th>Avatar</th>
+             <th>Nom</th>
+             <th>Designation</th>
+             <th>Lieu</th>
+             <th>EMail</th>
+           </tr>
+         </thead>
+         <tbody>
+            <metal:block tal:repeat="result results">
+            <tr tal:define="userid result/userid | nothing;
+                            fullname result/fullname | nothing;
+                            home python:container.portal_membership.getHomeUrl(userid, verifyPermission=1);
+                            portrait python: here.portal_membership.getPersonalPortrait(userid);
+                            designation result/designation | nothing;
+                            authorEx python:modules['ubify.cyninv2theme'].getAuthorInfo(context, userid);                                                  
+                            "
+                >
+                <td>
+                    <a class="avatarlink imglink" tal:attributes="rel string:${portal_url}/userinfo?userid=${userid}">
+                        <img src="defaultUser.gif" alt="" border="0" tal:attributes="src portrait/absolute_url" />
+                    </a>
+                 </td>
+                 <td>
+                       <div class="fullname"
+                                 tal:condition="fullname"
+                                 tal:define="fullname python:authorEx.getProperty('fullname') or userid;"
+                                 tal:content="fullname" />
+                 </td>
+                 <td>
+                       <div
+                                 tal:condition="location"
+                                 tal:define="location python:authorEx.getProperty('location')"
+                                 tal:content="location" />
+                 </td>
+                 <td>
+                            <div class="designation"
+                                 tal:condition="designation"
+                                 tal:define="designation python:authorEx.getProperty('designation');"
+                                 tal:content="designation" />
+                 </td>
+                 <td tal:define="email python:authorEx.getProperty('email');">
+                   <a tal:attributes="href string:mailto:$email;"><img src="mail_icon.gif"/></a>
+                 </td>
+               </tr>
+
+            </metal:block>
+         </tbody>
+        </table>
+<link type="text/css" href="++resource++jquery.datatables/media/css/jquery.dataTables.css" rel="stylesheet">
+<script src="++resource++jquery.datatables.js" type="text/javascript"></script>
+<script type="text/javascript">
+jq(document).ready(function() {
+    jq('#member-datatable').dataTable();
+} );
+</script>
+
+        </div>
+
+        <!-- Navigation -->
+        <div class="visualClear" id="clear-space-before-navigation"><!-- --></div>
+
+        <div metal:use-macro="here/batch_macros/macros/navigation" />
+
+        <div class="visualClear" id="clear-space-after-navigation"><!-- --></div>
+
+    </div>
+
+    <div tal:condition="not: results">
+        <p><strong i18n:translate="description_no_results_found">No results were found.</strong></p>
+    </div>
+
+</div>
+
+</html>
