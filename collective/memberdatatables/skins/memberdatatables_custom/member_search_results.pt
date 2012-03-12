@@ -54,9 +54,19 @@
                             home python:container.portal_membership.getHomeUrl(userid, verifyPermission=1);
                             portrait python: here.portal_membership.getPersonalPortrait(userid);
                             designation result/designation | nothing;
-                            authorEx python:modules['ubify.cyninv2theme'].getAuthorInfo(context, userid);                                                  
+                            authorEx python:modules['ubify.cyninv2theme'].getAuthorInfo(context, userid);
                             "
                 >
+                <tal:block tal:condition="not:authorEx"
+                tal:define="gtool context/portal_groups;group python:gtool.getGroupById(userid);">
+                 <td>Group</td>
+                 <td tal:content="python:group.getProperty('title')"></td>
+                 <td></td>
+                 <td></td>
+                 <td>
+                 </td>
+                </tal:block>
+                <tal:block tal:condition="authorEx">
                 <td>
                     <a class="avatarlink imglink" tal:attributes="rel string:${portal_url}/userinfo?userid=${userid}">
                         <img src="defaultUser.gif" alt="" border="0" tal:attributes="src portrait/absolute_url" />
@@ -83,6 +93,8 @@
                  <td tal:define="email python:authorEx.getProperty('email');">
                    <a tal:attributes="href string:mailto:$email;"><img src="mail_icon.gif"/></a>
                  </td>
+                 </tal:block>
+                 
                </tr>
 
             </metal:block>
