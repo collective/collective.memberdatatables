@@ -119,8 +119,6 @@
             <th rowspan="2" i18n:translate="listingheader_user_name">User name</th>
             <th colspan="3" tal:attributes="colspan python:len(portal_roles)"
                 i18n:translate="listingheader_roles">Roles</th>
-            <th rowspan="2">Pass</th>
-            <th rowspan="2">Suppr</th>
           </tr>
           <tr>
             <th tal:repeat="portal_role portal_roles" tal:content="portal_role" i18n:translate="">Role</th>
@@ -160,23 +158,6 @@
                                  disabled python:user.canAssignRole(portal_role) and default or 'disabled'" />
             </td>
 
-            <td class="listingCheckbox">
-              <input type="checkbox"
-                 class="noborder"
-                 name="users.resetpassword:records"
-                             value=""
-                             tal:attributes="value userid;
-                                             disabled python:user.canPasswordSet() and default or 'disabled'" />
-            </td>
-
-            <td class="listingCheckbox">
-              <input type="checkbox"
-                             class="noborder notify"
-                             name="delete:list"
-                             value=""
-                             tal:attributes="value userid;
-                                             disabled python:user.canDelete() and default or 'disabled'" />
-            </td>
           </tr>
         </tal:block>
                 <tr tal:condition="not:batch">
