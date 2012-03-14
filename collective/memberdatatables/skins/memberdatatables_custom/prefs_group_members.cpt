@@ -116,20 +116,14 @@
                  tal:condition="groupMembers">
                   <thead>
                   <tr>
-                      <th>
-                          <input class="noborder"
-                                 type="checkbox"
-                                 src="select_all_icon.gif"
-                                 name="selectButton"
-                                 title="Select all items"
-                                 onClick="toggleSelect(this, 'delete:list');"
-                                 tal:attributes="src string:$portal_url/select_all_icon.gif"
-                                 alt="Select all items"
-                                 i18n:attributes="title label_select_all_items; alt label_select_all_items;"/>
-                                 <!--Remove user from this group-->
-                      </th>
-                      <th i18n:translate="listingheader_group_user_name">Group/User name</th>
-                      <th i18n:translate="listingheader_email_address">E-mail Address</th>
+                <th>
+SELECT
+                </th>
+
+                <th i18n:translate="listingheader_group_user_name">Group/User name</th>
+                <th i18n:translate="listingheader_group_user_fullname">FullName</th>
+                <th i18n:translate="listingheader_group_user_location">Location</th>
+                <th>EMail</th>
                   </tr>
                   </thead>
                   <tbody>
@@ -159,7 +153,6 @@
 
                         <tal:block tal:condition="python: not isGroup(this_user)">
                           <td>
-                            <img src="user.gif" alt="" />
                             <a href="" tal:attributes="href python:'prefs_user_details?' + mq(userid=this_user.getId())"
                                 tal:content="this_user/getId | default">
                                 <span i18n:translate="link_username_not_available">
@@ -168,14 +161,15 @@
                             </a>
                           </td>
                         </tal:block>
-
+                        <td tal:content="python:this_user.getProperty('fullname')"></td>
+                        <td tal:content="python:this_user.getProperty('location')"></td>
                         <td tal:define="email python: this_user.getProperty('email')">
                             <a  href="#"
                                 tal:attributes="href string:mailto:${email}"
                                 title="Send a mail to this user"
                                 i18n:attributes="title title_send_mail_to_user;"
                                 tal:condition="email">
-                                <span tal:replace="email" />
+                                <img src="mail_icon.gif"/>
                             </a>
                         </td>
                     </tr>
@@ -239,10 +233,8 @@ SELECT
                           </a>
                       </tal:block>
                   </td>
-<tal:block tal:define="authorEx python:modules['ubify.cyninv2theme'].getAuthorInfo(context, this_user.getId());">
-                  <td tal:content="python:authorEx.getProperty('fullname')"></td>
-                  <td tal:content="python:authorEx.getProperty('location')"></td>
-</tal:block>
+                  <td tal:content="python:this_user.getProperty('fullname')"></td>
+                  <td tal:content="python:this_user.getProperty('location')"></td>
                 </tr>
               </tal:block>
               </tbody>
