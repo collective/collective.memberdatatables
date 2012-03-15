@@ -1,12 +1,10 @@
 Introduction
 ============
 
-This addon override Plone's user controlpanel to use the datatables_ jquery
+This addon is targeted to cynin in it's version 1.X and to Plone 4.X.
+
+It overrides Plone's user controlpanel to use the datatables_ jquery
 plugin. This is very usefull when you have lots of users to manage.
-
-This addon has first been created to use with cynin_ but it can also be
-used with Plone.
-
 
 Credits
 =======

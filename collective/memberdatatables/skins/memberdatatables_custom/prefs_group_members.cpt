@@ -112,7 +112,7 @@
                                 results python:here.prefs_user_group_search('', 'all', ignore=ignoreUsersGroups) or [];
                                 batch python:Batch(results, b_size, int(b_start), orphan=1)">
             <h2 i18n:translate="heading_groupmembers_current">Current group members</h2>
-              <table class="listing datatable" summary="Group Members Listing"
+              <table class="listing" summary="Group Members Listing"
                  tal:condition="groupMembers">
                   <thead>
                   <tr>
@@ -192,7 +192,7 @@ SELECT
             <input type="hidden" name="groupname" value="groupname" tal:attributes="value groupname" />
             <input type="hidden" name="form.submitted" value="1" />
 
-            <table class="listing datatable" summary="Groups">
+            <table class="listing memberdatatables" summary="Groups">
              <thead>
               <tr>
                 <th>
@@ -253,11 +253,7 @@ SELECT
             <input tal:replace="structure context/@@authenticator/authenticator" />
 
           </form>
-<script type="text/javascript">
-jq(document).ready(function() {
-    jq('.datatable').dataTable();
-} );
-</script>
+
         </tal:ifgroups>
       </div>
 

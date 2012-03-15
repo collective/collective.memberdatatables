@@ -37,7 +37,7 @@
     <div tal:condition="results">
 
         <div>
-        <table id="member-datatable">
+        <table class="listing">
          <thead>
            <tr>
              <th>Avatar</th>
@@ -101,20 +101,7 @@
          </tbody>
         </table>
 
-<script type="text/javascript">
-jq(document).ready(function() {
-    jq('#member-datatable').dataTable();
-} );
-</script>
-
         </div>
-
-        <!-- Navigation -->
-        <div class="visualClear" id="clear-space-before-navigation"><!-- --></div>
-
-        <div metal:use-macro="here/batch_macros/macros/navigation" />
-
-        <div class="visualClear" id="clear-space-after-navigation"><!-- --></div>
 
     </div>
 

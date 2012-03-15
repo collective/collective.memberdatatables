@@ -110,7 +110,7 @@
                           batch python:Batch(portal_users, b_size, int(b_start), orphan=1)">
           <input type="hidden" name="form.submitted" value="1" />
 
-          <table class="listing" summary="User Listing" id="prefsusers-datatable">
+          <table class="listing memberdatatables" summary="User Listing" id="prefsusers-datatable">
 <thead>
 
                 <tal:block tal:condition="portal_users" >
@@ -182,12 +182,6 @@
 </tbody>
           </table>
 
-<script type="text/javascript">
-jq(document).ready(function() {
-    jq('#page_margins').css('max-width','110em');
-    jq('#prefsusers-datatable').dataTable();
-} );
-</script>
           <input class="context"
              type="submit"
              name="form.button.Modify"
