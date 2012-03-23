@@ -23,7 +23,7 @@
            tal:attributes="href string:${folder/absolute_url}/sharing">go here</a>.
     </dd>
 </dl>
-TRALALA
+
 <p class="documentFirstDescription"
    i18n:translate="description_sharing_control">
     You can control who can view and edit your item using the list below.
