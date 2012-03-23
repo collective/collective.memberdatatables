@@ -1,0 +1,4 @@
+<layers>
+    <layer name="collective.memberdatatables" 
+           interface="collective.memberdatatables.sharing.ILayer" />
+</layers>

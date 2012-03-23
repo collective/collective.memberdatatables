@@ -1,5 +1,6 @@
 <configure
     xmlns="http://namespaces.zope.org/zope"
+    xmlns:browser="http://namespaces.zope.org/browser"
     xmlns:cmf="http://namespaces.zope.org/cmf"
     xmlns:five="http://namespaces.zope.org/five"
     xmlns:i18n="http://namespaces.zope.org/i18n"
@@ -18,5 +19,15 @@
   <!-- -*- extra stuff goes here -*- -->
 
   <cmf:registerDirectory name="memberdatatables_custom"/>
+
+  <include package="ubify.cyninv2theme" />
+  <browser:page
+     name="sharing"
+     for="*"
+     class=".sharing.SharingView"
+     template="sharing.pt"
+     layer=".sharing.ILayer"
+     permission="plone.DelegateRoles"
+     />
 
 </configure>
