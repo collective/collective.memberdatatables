@@ -112,7 +112,7 @@
                                 results python:here.prefs_user_group_search('', 'all', ignore=ignoreUsersGroups) or [];
                                 batch python:Batch(results, b_size, int(b_start), orphan=1)">
             <h2 i18n:translate="heading_groupmembers_current">Current group members</h2>
-              <table class="listing" summary="Group Members Listing"
+              <table class="listing nosort" summary="Group Members Listing"
                  tal:condition="groupMembers">
                   <thead>
                   <tr>

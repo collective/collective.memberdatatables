@@ -37,7 +37,7 @@
     <div tal:condition="results">
 
         <div>
-        <table class="listing">
+        <table class="listing nosort">
          <thead>
            <tr>
              <th>Avatar</th>
@@ -49,26 +49,26 @@
          </thead>
          <tbody>
             <metal:block tal:repeat="result results">
-            <tr tal:define="userid result/userid | nothing;
+            <tal:def tal:define="userid result/userid | nothing;
                             fullname result/fullname | nothing;
                             home python:container.portal_membership.getHomeUrl(userid, verifyPermission=1);
                             portrait python: here.portal_membership.getPersonalPortrait(userid);
                             designation result/designation | nothing;
                             authorEx python:modules['ubify.cyninv2theme'].getAuthorInfo(context, userid);">
-                <tal:block tal:condition="not:authorEx"
+              <tal:block tal:condition="not:authorEx"
                            tal:define="gtool context/portal_groups;group python:gtool.getGroupById(userid);">
-                 <tal:check>
+                 <tr tal:condition="group">
                   <td>
                       <span tal:condition="python:group is not None" tal:replace="string:Group"></span>
-                      <span tal:condition="python:group is None" tal:replace="string:?"></span>
                   </td>
-                  <td tal:content="python:group is not None and group.getProperty('title') or userid"></td>
+                  <td tal:content="python:group is not None and group.getProperty('title') or ''"></td>
                   <td></td>
                   <td></td>
                   <td></td>
-                 </tal:check>
-                </tal:block>
-                <tal:block tal:condition="authorEx">
+                 </tr>
+              </tal:block>
+              <tal:block tal:condition="authorEx">
+               <tr>
                 <td>
                     <span class="hiddenStructure" tal:content="userid"></span>
                     <a class="avatarlink imglink" tal:attributes="rel string:${portal_url}/userinfo?userid=${userid}">
@@ -93,8 +93,9 @@
                  <td tal:define="email python:authorEx.getProperty('email');">
                    <a tal:condition="email" tal:attributes="href string:mailto:$email;"><img src="mail_icon.gif"/></a>
                  </td>
-                 </tal:block>
-               </tr>
+                </tr>
+               </tal:block>
+              </tal:def>
             </metal:block>
          </tbody>
         </table>

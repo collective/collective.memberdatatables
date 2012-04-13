@@ -98,7 +98,7 @@
                     <input type="hidden" value="b_start" name="b_start"
                            tal:attributes="value b_start"/>
 
-                    <table class="listing userlisting memberdatatables" id="prefsgroups-datatable"
+                    <table class="listing nosort userlisting memberdatatables" id="prefsgroups-datatable"
                            summary="Select roles for each group"
                            i18n:attributes="summary summary_roles_for_groups;">
                         <tal:block tal:condition="search_results">
