@@ -14,9 +14,6 @@ class SharingView(sharing.SharingView):
 
     template = ViewPageTemplateFile('sharing.pt')
 
-    def group_search_results(self):
-        return []
-
     def _principal_search_results(self,
                                   search_for_principal,
                                   get_principal_by_id,
@@ -33,10 +30,13 @@ class SharingView(sharing.SharingView):
 
         hunter = getMultiAdapter((context, self.request), name='pas_search')
 
-        all = hunter.searchUsersByRequest(self.request, sort_by='fullname');
+        if principal_type == 'user':
+            all = hunter.searchUsersByRequest(self.request, sort_by='fullname')
+        else:
+            all = hunter.searchGroupsByRequest(self.request)
 
         for principal_info in all:
-            principal_id = principal_info['userid']
+            principal_id = principal_info[id_key]
             if principal_id not in existing_principals:
                 principal = get_principal_by_id(principal_id)
                 roles = empty_roles.copy()
