@@ -139,6 +139,16 @@
                  tal:attributes="href string:$portal_url/prefs_user_details?${userquery}">
             <span tal:replace="userid">username</span>
               </a>
+               <tal:for
+                tal:define="user_roles user/getRoles"
+                tal:condition="user_roles"
+                tal:repeat="portal_role portal_roles">
+                <input type="hidden"
+                  tal:condition="python:user.canAssignRole(portal_role) and (portal_role in user_roles)"
+                  name="users.roles:list:records"
+                  value="Manager"
+                  tal:attributes="value portal_role"/>
+              </tal:for>
               <input type="hidden" name="users.id:records" tal:attributes="value userid" />
                     </td>
                     <td>

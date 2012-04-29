@@ -23,6 +23,7 @@ Authors
 -------
 
 - JeanMichel FRANCOIS aka toutpt <toutpt@gmail.com>
+- Mathieu Le Marec - Pasquet aka kiorky <kiorky@cryptelium.net>
 
 .. Contributors
 
