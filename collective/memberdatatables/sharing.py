@@ -2,12 +2,8 @@ from zope import interface
 from plone.app.workflow.browser import sharing
 from Acquisition import aq_inner, aq_parent, aq_base
 
-from ubify.cyninv2theme.browser.interfaces import IThemeSpecific
 from zope.component import getMultiAdapter
 from Products.Five.browser.pagetemplatefile import ViewPageTemplateFile
-
-class ILayer(IThemeSpecific):
-    """Override Cynin v2 Theme override of sharing view"""
 
 class SharingView(sharing.SharingView):
     """Override sharing view to use datatables"""

@@ -26,6 +26,7 @@ setup(name='collective.memberdatatables',
       install_requires=[
           'setuptools',
           'collective.js.datatables',
+          'z3c.jbot',
           # -*- Extra requirements: -*-
       ],
       entry_points="""

@@ -8,6 +8,7 @@
     i18n_domain="collective.memberdatatables">
 
   <five:registerPackage package="." initialize=".initialize" />
+  <include package="Products.CMFCore" file="permissions.zcml"/>
 
   <genericsetup:registerProfile
       name="default"
@@ -19,8 +20,8 @@
   <!-- -*- extra stuff goes here -*- -->
 
   <cmf:registerDirectory name="memberdatatables_custom"/>
+  <include package="z3c.jbot" file="meta.zcml" />
 
-  <include package="ubify.cyninv2theme" />
   <browser:page
      name="sharing"
      for="*"
@@ -29,5 +30,14 @@
      layer=".sharing.ILayer"
      permission="plone.DelegateRoles"
      />
+
+  <browser:jbot directory="overrides"/>
+  <browser:page
+      name="usergroup-userprefs"
+      for="Products.CMFPlone.interfaces.IPloneSiteRoot"
+      class="plone.app.controlpanel.usergroups.UsersOverviewControlPanel"
+      permission="plone.app.controlpanel.UsersAndGroups"
+      template="usergroups_usersoverview.pt"
+      />
 
 </configure>

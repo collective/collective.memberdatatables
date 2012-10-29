@@ -15,6 +15,7 @@
                 b_start python:0 if showAll or view.newSearch else request.get('b_start',0);
                 b_size python:showAll and len(view.searchResults) or 20;
                 portal_roles view/portal_roles;
+                mtool context/portal_membership;
                 portal_url context/portal_url;">
 
     <div class="documentEditable">
@@ -102,50 +103,24 @@
                                   many_users view/many_users">
                   <input type="hidden" name="form.submitted" value="1" />
 
-                  <table class="listing" summary="User Listing">
-                      <tbody>
-                          <tr class="odd">
-                              <th colspan="6" tal:attributes="colspan python:len(portal_roles)+4">
-                                  <span tal:omit-tag="" i18n:translate="label_user_search">User Search</span>:
-                                  <input class="quickSearch"
-                                         type="text"
-                                         name="searchstring"
-                                         value=""
-                                         tal:attributes="value view/searchString;"
-                                         />
-
-                                  <input type="submit"
-                                         class="searchButton"
-                                         name="form.button.Search"
-                                         value="Search"
-                                         i18n:attributes="value label_search;"
-                                         />
-
-                                  <input type="submit"
-                                         class="searchButton"
-                                         name="form.button.FindAll"
-                                         value="Show all"
-                                         i18n:attributes="value label_showall;"
-                                         tal:condition="not:many_users"
-                                         />
-                              </th>
-                          </tr>
+                  <table class="listing memberdatatables" summary="User Listing">
+                      <thead>
                           <tal:block tal:condition="portal_users" >
-                          <tr class="odd">
-                              <th rowspan="2" i18n:translate="listingheader_user_name">User name</th>
-                              <th colspan="3" tal:attributes="colspan python:len(portal_roles)"
-                                  i18n:translate="listingheader_roles">Roles</th>
-                              <th rowspan="2" i18n:translate="listingheader_reset_password">Reset Password</th>
-                              <th rowspan="2" i18n:translate="listingheader_remove_user">Remove user</th>
-                          </tr>
-                          <tr class="odd">
-                              <th tal:repeat="portal_role portal_roles" tal:content="portal_role" i18n:translate="">Role</th>
+                          <tr>
+                              <th i18n:translate="listingheader_user_name">User name</th>
+                              <th i18n:translate="listingheader_user_designation">User name</th>
+                              <th i18n:translate="listingheader_user_location">User name</th>
+                              <th i18n:translate="listingheader_reset_password">Reset Password</th>
+                              <th i18n:translate="listingheader_remove_user">Remove user</th>
                           </tr>
                           </tal:block>
-                          <tal:block repeat="user batch">
+                       </thead>
+                       <tbody>
+                          <tal:block repeat="user portal_users">
                             <tr tal:define="oddrow repeat/user/odd;
                                             userid user/userid;
-                                            userquery python:view.makeQuery(userid=userid);"
+                                            userquery python:view.makeQuery(userid=userid);
+                                            user python:mtool.getMemberById(userid)"
                                 tal:attributes="class python:oddrow and 'odd' or 'even'">
 
                                 <td>
