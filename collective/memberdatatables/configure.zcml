@@ -9,6 +9,7 @@
 
   <five:registerPackage package="." initialize=".initialize" />
   <include package="Products.CMFCore" file="permissions.zcml"/>
+  <include package="plone.app.workflow" file="permissions.zcml"/>
   <include file="upgrades.zcml"/>
 
   <genericsetup:registerProfile
@@ -28,7 +29,7 @@
      for="*"
      class=".sharing.SharingView"
      template="sharing.pt"
-     layer=".sharing.ILayer"
+     layer=".layer.ILayer"
      permission="plone.DelegateRoles"
      />
 
