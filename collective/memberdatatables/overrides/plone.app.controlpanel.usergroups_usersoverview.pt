@@ -64,11 +64,6 @@
                   Click the user's name to see and change the details of a
                   specific user. You can also add and remove users.
                 </p>
-                <p i18n:translate="user_roles_note">
-                  Note that roles set here apply directly to a user.
-                  The symbol <img i18n:name="image_link_icon" tal:replace="structure context/site_icon.png" />
-                  indicates a role inherited from membership in a group.
-                </p>
                 <p i18n:translate="description_pas_users_listing"
                    tal:condition="view/show_users_listing_warning">
                   Note: Some or all of your PAS user source
@@ -107,9 +102,10 @@
                       <thead>
                           <tal:block tal:condition="portal_users" >
                           <tr>
+                              <th>ID</th>
                               <th i18n:translate="listingheader_user_name">User name</th>
-                              <th i18n:translate="listingheader_user_designation">User name</th>
-                              <th i18n:translate="listingheader_user_location">User name</th>
+                              <th i18n:translate="listingheader_user_email">EMail</th>
+                              <th i18n:translate="listingheader_user_location">location</th>
                               <th i18n:translate="listingheader_reset_password">Reset Password</th>
                               <th i18n:translate="listingheader_remove_user">Remove user</th>
                           </tr>
@@ -120,39 +116,27 @@
                             <tr tal:define="oddrow repeat/user/odd;
                                             userid user/userid;
                                             userquery python:view.makeQuery(userid=userid);
-                                            user python:mtool.getMemberById(userid)"
+                                            member python:mtool.getMemberById(userid)"
                                 tal:attributes="class python:oddrow and 'odd' or 'even'">
 
                                 <td>
                                     <a href="@@user-information"
                                        tal:attributes="href string:$portal_url/@@user-information?${userquery}">
-                                        <tal:block replace="structure context/portal_url/user.png"/>&nbsp;<span tal:replace="user/fullname">Full Name</span>
-                                        (<span tal:replace="userid">username</span>)
+                                        <span tal:replace="userid">username</span>
                                     </a>
                                     <input type="hidden" name="users.id:records" tal:attributes="value userid" />
                                 </td>
 
-                                <td class="listingCheckbox"
-                                    tal:repeat="portal_role portal_roles">
-                                  <tal:block tal:define="inherited python:user['roles'][portal_role]['inherited'];
-                                                         explicit python:user['roles'][portal_role]['explicit'];
-                                                         enabled python:user['roles'][portal_role]['canAssign']">
-                                    <input type="checkbox"
-                                       class="noborder"
-                                       name="users.roles:list:records"
-                                       value="Manager"
-                                       tal:condition="not:inherited"
-                                       tal:attributes="value portal_role;
-                                           checked python:'checked' if explicit else nothing;
-                                           disabled python:default if enabled else 'disabled'" />
-                                    <input type="hidden"
-                                        name="users.roles:list:records"
-                                        value="Manager"
-                                        tal:condition="python:explicit and not enabled and not inherited"
-                                        tal:attributes="value portal_role" />
-                                    <img tal:condition="inherited" tal:replace="structure context/site_icon.png" />
-                                  </tal:block>
+                                <td>
+                                    <span tal:replace="python:member.getProperty('fullname')">Full Name</span>
+                                </td>
 
+                                <td>
+                                    <span><a tal:attributes="href python:'mailto:' + member.getProperty('email')" tal:content="python:member.getProperty('email')">Email</a></span>
+                                </td>
+
+                                <td tal:define="location python:member.getProperty('location')">
+                                    <span tal:replace="location"></span>
                                 </td>
 
                                 <td class="listingCheckbox">
@@ -174,41 +158,8 @@
                                 </td>
                             </tr>
                           </tal:block>
-                          <tr tal:condition="not:batch">
-                              <td tal:condition="view/searchString"
-                                  i18n:translate="text_nomatches"
-                                  style="text-align:center;">No matches</td>
-                              <tal:block tal:condition="not:view/searchString">
-                                <td tal:condition="many_users"
-                                    class="discreet"
-                                    i18n:translate="text_no_user_searchstring"
-                                    style="text-align:center; font-size: 100%;">
-                                    Enter a username to search for
-                                </td>
-                                <td tal:condition="not:many_users"
-                                    class="discreet"
-                                    i18n:translate="text_no_user_searchstring_largesite"
-                                    style="text-align:center; font-size: 100%;">
-                                    Enter a username to search for, or click 'Show All'
-                                </td>
-                              </tal:block>
-                          </tr>
                       </tbody>
                   </table>
-
-                  <div metal:use-macro="context/batch_macros/macros/navigation" />
-
-                  <div class="showAllSearchResults"
-                       tal:condition="python:batch.next or batch.previous"
-                       tal:define="mq python:modules['ZTUtils'].make_query;
-                                   keys batchformkeys|nothing;
-                                   linkparams python:keys and dict([(key, request.form[key]) for key in keys if key in request]) or request.form;
-                                   url batch_base_url | string:${context/absolute_url}/${template_id}">
-                      <a tal:attributes="href python: '%s?%s' % (url, mq( linkparams, {'showAll':'y'} ))"
-                         i18n:translate="description_pas_show_all_search_results">
-                          Show all search results
-                      </a>
-                  </div>
 
                   <input type="hidden" value="b_start" name="b_start"
                          tal:attributes="value b_start"/>

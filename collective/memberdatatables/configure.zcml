@@ -9,6 +9,7 @@
 
   <five:registerPackage package="." initialize=".initialize" />
   <include package="Products.CMFCore" file="permissions.zcml"/>
+  <include file="upgrades.zcml"/>
 
   <genericsetup:registerProfile
       name="default"
@@ -32,12 +33,9 @@
      />
 
   <browser:jbot directory="overrides"/>
-  <browser:page
-      name="usergroup-userprefs"
-      for="Products.CMFPlone.interfaces.IPloneSiteRoot"
-      class="plone.app.controlpanel.usergroups.UsersOverviewControlPanel"
-      permission="plone.app.controlpanel.UsersAndGroups"
-      template="usergroups_usersoverview.pt"
-      />
+
+  <browser:resource
+    name="memberdatatables.js"
+    file="memberdatatables.js"/>
 
 </configure>
