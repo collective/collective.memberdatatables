@@ -2,10 +2,12 @@
       lang="en"
       metal:use-macro="context/main_template/macros/master"
       i18n:domain="plone">
-
-<head>
-</head>
-
+    <head>
+        <metal:block fill-slot="top_slot"
+            tal:define="dummy python:request.set('disable_border',1);
+                        disable_column_one python:request.set('disable_plone.leftcolumn',1);
+                        disable_column_two python:request.set('disable_plone.rightcolumn',1);" />
+    </head>
 <body>
 <div metal:fill-slot="body"
      tal:define="context_state context/@@plone_context_state">
@@ -58,8 +60,8 @@
                             oddrow repeat/entry/odd;"
                 tal:attributes="class python:oddrow and 'odd' or 'even'">
                 <td>
-                    <img tal:condition="is_group" tal:replace="structure context/group.gif" />
-                    <img tal:condition="not:is_group" tal:replace="structure context/user.gif" />
+                    <img tal:condition="is_group" tal:attributes="src string:${context/absolute_url}/group.gif" />
+                    <img tal:condition="not:is_group" tal:attributes="src string:${context/absolute_url}/user.gif" />
                     <span tal:replace="entry/title" />
                     <input
                         tal:condition="not:disabled"
@@ -81,8 +83,8 @@
                         <span tal:condition="python:entry_role == 'acquired'" class="hiddenStructure">b</span>
                         <span tal:condition="python:entry_role == True" class="hiddenStructure">c</span>
                         <span tal:condition="python:entry_role == False" class="hiddenStructure">d</span>
-                        <img tal:condition="python:entry_role == 'global'" tal:replace="structure context/site_icon.gif">
-                        <img tal:condition="python:entry_role == 'acquired'" tal:replace="structure context/confirm_icon.gif">
+                        <img tal:condition="python:entry_role == 'global'" tal:attributes="src string:${context/absolute_url}/site_icon.gif">
+                        <img tal:condition="python:entry_role == 'acquired'" tal:attributes="src string:${context/absolute_url}/confirm_icon.gif">
                         <tal:block condition="python:entry_role in (True, False)">
                             <input class="noborder"
                                 type="checkbox"
@@ -118,10 +120,10 @@
         be valid.
         In the overview, the symbol
         <img i18n:name="image_confirm_icon"
-             tal:replace="structure context/confirm_icon.gif" />
+             tal:attributes="src string:${context/absolute_url}/confirm_icon.gif" />
         indicates an inherited value. Similarly, the symbol
         <img i18n:name="image_link_icon"
-             tal:replace="structure context/site_icon.gif" />
+             tal:attributes="src string:${context/absolute_url}/site_icon.gif" />
         indicates a global role, which is managed by the site administrator.
     </div>
 </div>

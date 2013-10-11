@@ -21,7 +21,6 @@
       />
   <!-- -*- extra stuff goes here -*- -->
 
-  <cmf:registerDirectory name="memberdatatables_custom"/>
   <include package="z3c.jbot" file="meta.zcml" />
 
   <browser:page
