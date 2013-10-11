@@ -8,8 +8,6 @@ from Products.Five.browser.pagetemplatefile import ViewPageTemplateFile
 class SharingView(sharing.SharingView):
     """Override sharing view to use datatables"""
 
-    template = ViewPageTemplateFile('sharing.pt')
-
     def _principal_search_results(self,
                                   search_for_principal,
                                   get_principal_by_id,
