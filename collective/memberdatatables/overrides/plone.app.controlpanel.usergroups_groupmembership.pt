@@ -107,7 +107,7 @@
                     <h2 i18n:translate="heading_groupmembers_current">Current group members</h2>
                       <table class="listing" summary="Group Members Listing"
                          tal:condition="view/groupMembers">
-
+                          <thead>
                           <tr>
                               <th>
                                   <input class="noborder"
@@ -124,7 +124,8 @@
                               <th i18n:translate="listingheader_user_name">User name</th>
                               <th i18n:translate="listingheader_email_address">E-mail Address</th>
                           </tr>
-
+                          </thead>
+                          <tbody>
                           <tal:block tal:repeat="this_user view/groupMembers">
                             <tr tal:condition="python:this_user is not None"
                                 tal:define="oddrow repeat/this_user/odd"
@@ -172,6 +173,7 @@
                                 </td>
                             </tr>
                           </tal:block>
+                          </tbody>
                       </table>
 
 
@@ -189,10 +191,6 @@
                         <h2 i18n:translate="heading_search_newmembers">Search for new group members</h2>
 
                         <input type="hidden" name="form.submitted" value="1" />
-
-                        <table class="listing" summary="Groups">
-                          <tr>
-                            <th colspan="3">
                               <span tal:omit-tag="" i18n:translate="label_quick_search">Quick search</span>:
                                 <input class="quickSearch"
                                        type="text"
@@ -212,10 +210,11 @@
                                        value="Show all"
                                        i18n:attributes="value label_search_large;"
                                        tal:condition="not:many_users" />
-                            </th>
-                          </tr>
+
+                        <table class="listing" summary="Groups">
+                          <thead>
                           <tr tal:condition="batch">
-                            <th>
+                            <th><tal:select i18n:translate="">Select All</tal:select>
                                 <input class="noborder"
                                        type="checkbox"
                                        src="select_all_icon.png"
@@ -230,7 +229,8 @@
                             <th i18n:translate="listingheader_group_user_name">Group/User name</th>
                             <th i18n:translate="listingheader_email_address">E-mail Address</th>
                           </tr>
-
+                          </thead>
+                          <tbody>
                           <tal:block repeat="this_user batch">
                             <tr tal:define="oddrow repeat/this_user/odd"
 				tal:condition="python:this_user is not None"
@@ -298,7 +298,7 @@
                             </tal:block>
 
                           </tr>
-
+                        </tbody>
                         </table>
 
                         <input type="hidden" value="b_start" name="b_start"

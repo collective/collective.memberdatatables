@@ -1,7 +1,13 @@
 $(document).ready(function() {
-    $('body.template-member_search_results .listing').dataTable();
-    $('body.template-prefs_group_members .listing').dataTable();
-    $('body.template-prefs_groups_overview .listing').dataTable();
-    $('body.template-prefs_users_overview .listing').dataTable();
-    $('body.template-prefs_users_roles .listing').dataTable();
+    datatableconfig = {
+            "iDisplayLength": -1,
+            "aLengthMenu": [[100, 200, 500, -1],[100, 200, 500, "All"]],
+            "oLanguage": {
+                "sUrl": "@@collective.js.datatables.translation"
+            }
+    };
+    $('body.template-member_search_results .listing').dataTable(datatableconfig);
+    $('body.template-usergroup-groupprefs .listing').dataTable(datatableconfig);
+    $('body.template-usergroup-userprefs .listing').dataTable(datatableconfig);
+    $('body.template-usergroup-groupmembership .listing').dataTable(datatableconfig);
 });

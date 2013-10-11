@@ -116,15 +116,6 @@
 
                     <input type="hidden" value="" name="showAll"
                            tal:attributes="value showAll"/>
-
-                    <table class="listing"
-                           summary="Select roles for each group"
-                           i18n:attributes="summary summary_roles_for_groups;">
-                        <tbody>
-                            <tr class="odd">
-                                <th colspan="6"
-                                    tal:attributes="colspan python:len(portal_roles)+2">
-
                                     <span tal:omit-tag=""
                                           i18n:translate="label_group_search">
                                         Group Search
@@ -152,36 +143,32 @@
                                            tal:condition="not:site_properties/many_groups"
                                            />
 
-                                </th>
-                            </tr>
+                    <table class="listing"
+                           summary="Select roles for each group"
+                           i18n:attributes="summary summary_roles_for_groups;">
+                      <tal:block tal:condition="search_results">
 
-                            <tal:block tal:condition="search_results">
+                        <thead>
+
                             <tr class="odd">
-                                <th rowspan="2"
-                                    i18n:translate="listingheader_group_name">
+                                <th i18n:translate="listingheader_group_name">
                                     Group Name
                                 </th>
 
-                                <th colspan="3"
-                                    tal:attributes="colspan python:len(portal_roles)"
-                                    i18n:translate="listingheader_roles">
-                                    Roles
-                                </th>
-
-                                <th rowspan="2"
-                                    i18n:translate="listingheader_remove_group">
-                                    Remove Group
-                                </th>
-                            </tr>
-
-                            <tr class="odd">
                                 <tal:header repeat="portal_role portal_roles">
                                     <th tal:content="portal_role"
                                         i18n:translate="">
                                         Role
                                     </th>
                                 </tal:header>
+
+                                <th
+                                    i18n:translate="listingheader_remove_group">
+                                    Remove Group
+                                </th>
                             </tr>
+                            </thead>
+                            <tbody>
 
                             <tal:block repeat="group_info batch">
                             <tr tal:define="oddrow repeat/group_info/odd;"
@@ -238,20 +225,14 @@
                                 </td>
                             </tr>
                             </tal:block>
-
-                            </tal:block>
-
-                            <tal:block tal:condition="python:(view.searchString and not search_results)">
-                            <tr>
-                                <td i18n:translate="text_nomatches"
-                                    style="text-align:center;">
-                                    No matches
-                                </td>
-                            </tr>
-                            </tal:block>
-                        </tbody>
+                            </tbody>
+                        </tal:block>
                     </table>
-
+                    <tal:block tal:condition="python:(view.searchString and not search_results)">
+                        <p i18n:translate="text_nomatches">
+                            No matches
+                        </p>
+                    </tal:block>
                     <tal:block tal:condition="python:(search_results)">
 
                         <div metal:use-macro="context/batch_macros/macros/navigation" />
