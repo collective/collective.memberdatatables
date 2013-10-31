@@ -33,6 +33,14 @@
      permission="plone.DelegateRoles"
      />
   <browser:page
+      name="usergroup-userroles"
+      for="Products.CMFPlone.interfaces.IPloneSiteRoot"
+      class="plone.app.controlpanel.usergroups.UsersOverviewControlPanel"
+      permission="plone.app.controlpanel.UsersAndGroups"
+      template="templates/usergroups_usersroles.pt"
+      layer=".layer.ILayer"
+      />
+  <browser:page
       name="usergroup-userprefs"
       for="Products.CMFPlone.interfaces.IPloneSiteRoot"
       class="plone.app.controlpanel.usergroups.UsersOverviewControlPanel"

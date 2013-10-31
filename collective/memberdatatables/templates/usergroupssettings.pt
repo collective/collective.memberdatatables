@@ -19,6 +19,11 @@
                  tal:attributes="href string:$portal_url/@@usergroup-userprefs"
                  i18n:translate="label_users">Users</a>
             </li>
+              <li>
+                <a href=""
+                   tal:attributes="href string:$portal_url/@@usergroup-userroles"
+                   i18n:translate="">Roles</a>
+              </li>
             <li>
               <a href=""
                  tal:attributes="href string:$portal_url/@@usergroup-groupprefs"
