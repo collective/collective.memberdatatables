@@ -9,5 +9,6 @@ $(document).ready(function() {
     $('body.template-member_search_results .listing').dataTable(datatableconfig);
     $('body.template-usergroup-groupprefs .listing').dataTable(datatableconfig);
     $('body.template-usergroup-userprefs .listing').dataTable(datatableconfig);
+    $('body.template-usergroup-userroles .listing').dataTable(datatableconfig);
     $('body.template-usergroup-groupmembership .listing').dataTable(datatableconfig);
 });
