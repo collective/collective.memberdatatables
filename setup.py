@@ -29,9 +29,11 @@ setup(name='collective.memberdatatables',
           'z3c.jbot',
           # -*- Extra requirements: -*-
       ],
+      extras_require=dict(
+          test=['plone.app.testing', 'plone.app.robotframework', 'plone.api', 'selenium'],
+      ),
       entry_points="""
       # -*- Entry points: -*-
-
       [z3c.autoinclude.plugin]
       target = plone
       """,
