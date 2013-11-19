@@ -8,8 +8,11 @@
     i18n_domain="collective.memberdatatables">
 
   <five:registerPackage package="." initialize=".initialize" />
+  <includeDependencies package="."/>
   <include package="Products.CMFCore" file="permissions.zcml"/>
+  <include package="plone.app.controlpanel" file="permissions.zcml"/>
   <include package="plone.app.workflow" file="permissions.zcml"/>
+  <include package="z3c.jbot" file="meta.zcml" />
   <include file="upgrades.zcml"/>
 
   <genericsetup:registerProfile
@@ -21,8 +24,6 @@
       />
   <!-- -*- extra stuff goes here -*- -->
 
-  <include package="z3c.jbot" file="meta.zcml" />
-  <include package="plone.app.controlpanel" file="permissions.zcml"/>
 
   <browser:page
      name="sharing"

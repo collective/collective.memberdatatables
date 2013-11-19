@@ -1,8 +1,6 @@
-import datetime
 import unittest2 as unittest
 from collective.memberdatatables.tests import base
 from plone.app import testing
-from plone.uuid.interfaces import IUUID
 
 
 class TestIntegration(base.IntegrationTestCase):
@@ -15,6 +13,7 @@ class TestIntegration(base.IntegrationTestCase):
         self.request = self.layer['request']
         testing.login(self.portal, testing.TEST_USER_NAME)
         testing.setRoles(self.portal, testing.TEST_USER_ID, ['Manager'])
+
 
 def test_suite():
     return unittest.defaultTestLoader.loadTestsFromName(__name__)

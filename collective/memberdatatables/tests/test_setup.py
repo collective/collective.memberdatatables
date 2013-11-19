@@ -1,6 +1,5 @@
 import unittest2 as unittest
 from collective.memberdatatables.tests import base
-from Products.CMFPlone.interfaces.constrains import ISelectableConstrainTypes
 
 
 class TestSetup(base.IntegrationTestCase):
@@ -11,7 +10,7 @@ class TestSetup(base.IntegrationTestCase):
     def test_browserlayer(self):
         from plone.browserlayer import utils
         from collective.memberdatatables import layer
-        self.assertIn(layer.Layer, utils.registered_layers())
+        self.assertIn(layer.ILayer, utils.registered_layers())
 
     def test_types(self):
         types = self.layer['portal'].portal_types

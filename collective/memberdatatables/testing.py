@@ -13,6 +13,8 @@ class Layer(PloneSandboxLayer):
     def setUpZope(self, app, configurationContext):
         # Load ZCML
         import collective.memberdatatables
+        import collective.js.datatables
+        self.loadZCML(package=collective.js.datatables)
         self.loadZCML(package=collective.memberdatatables)
 
 #        z2.installProduct(app, 'collective.memberdatatables')
