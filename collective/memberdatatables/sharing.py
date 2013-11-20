@@ -16,7 +16,7 @@ class SharingView(sharing.SharingView):
         existing_principals = set(
             [p['id'] for p in self.existing_role_settings()
              if p['type'] == principal_type]
-            )
+        )
         empty_roles = dict([(r['id'], False) for r in self.roles()])
         info = []
         hunter = getMultiAdapter((context, self.request), name='pas_search')
